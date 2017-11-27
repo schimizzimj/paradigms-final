@@ -6,7 +6,9 @@ class _recipe_database:
 		self.ratings = {}
 
 	def load_recipes(self, recipe_file):#loads in all recipe data from file using json library
-		self.recipes = json.load(open(recipe_file))
+		f = open(recipe_file, "r")
+		self.recipes = json.load(f)
+		f.close()
 
 	def get_recipe_by_id(self, rid):# access a recipe by its id, as in movie database
 		output = {}
