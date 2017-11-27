@@ -109,11 +109,7 @@ class _recipe_database:
 		f = open(filename, "w")
 		for item in self.ratings:
 			for uitem in self.ratings[item]:
-<<<<<<< HEAD
 				thisrating = str(self.ratings[item][uitem])			
-=======
-				thisrating = string(self.ratings[item][uitem])
->>>>>>> cd5befdd4e4ad53307de10240b26b9502f355a3b
 				tempstring = item + "::" + uitem + "::" + thisrating + "\n"
 				f.write(tempstring)
 		f.close()
