@@ -106,13 +106,14 @@ class _recipe_database:
 		f = open(filename, "w")
 		for item in self.ratings:
 			for uitem in self.ratings[item]:
-				thisrating = string(self.ratings[item][uitem])
+				thisrating = str(self.ratings[item][uitem])			
 				tempstring = item + "::" + uitem + "::" + thisrating + "\n"
 				f.write(tempstring)
 		f.close()
 
 if __name__ == "__main__":
 	rdb = _recipe_database()
-
-	rdb.load_recipes('recipe.txt')
-	print(rdb.get_recipe_by_ingredient('seedless'))
+	
+	rdb.load_ratings('origratings.txt')
+	rdb.set_user_recipe_rating('100000', '0', 5)
+	rdb.write_ratings('ratings.txt')
