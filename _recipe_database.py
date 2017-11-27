@@ -66,7 +66,25 @@ class _recipe_database:
 		if rid not in self.ratings:
 			self.ratings[rid] = {}
 		self.ratings[rid][user] = int(rating)
+	
+	def get_user_recipe_rating(self, user, rid):
+		if rid not in self.ratings:
+			return {'result':'error', 'message':'recipe not found'}
+		if user not in self.ratings[rid]:
+			return {'result':'error', 'message':'user not found (for this recipe)'}
+		else:
+			return self.ratings[rid][user]
+	
+	def delete_all_all(self):
+		self.ratings.clear()
+		self.recipes.clear()
 		
+	def delete_all_recipes(self):
+		self.recipes.clear()
+	
+	def delete_all_ratings(self):
+		self.ratings.clear()
+
 if __name__ == "__main__":
 	rdb = _recipe_database()
 	
