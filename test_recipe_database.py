@@ -28,7 +28,9 @@ class TestRecipeDatabase(unittest.TestCase):
         recipe = self.rdb.get_recipe_by_id('3000')
         self.assertEquals(recipe['result'], 'error')
 
-    
+    def test_get_highest_rated_recipe(self):
+        self.reset_data()
+        rid = self.rdb.get_highest_rated_recipe()
 
 if __name__ == "__main__":
     unittest.main()
