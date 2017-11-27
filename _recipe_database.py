@@ -46,7 +46,7 @@ class _recipe_database:
 			total += thismap[key]
 			counter += 1
 		avgrat=float(total)/float(counter)
-		return {"rating":avgrat, "recipe_id":int(rid), "result":"success"}
+		return avgrat
 
 	def get_highest_nonrated_recipe(self, user, recipedict):
 		current = "0"
@@ -55,21 +55,23 @@ class _recipe_database:
 			if user in self.ratings[current]:
 				current = item
 				flipped = 0
-			elif self.get_rating(current)['rating'] > self.get_rating(item)['rating']:
+			elif self.get_rating(current) > self.get_rating(item):
 				current = item
 				flipped = 1
 		if flipped == 0:
 			return {'result':'error', 'message':'all recipes already rated'}
 		else:
-			return self.ratings[current]
+			return current
 
 	def get_highest_rated_recipe(self):
-		if self.ratings:
+		# used to get the highest rated recipe overall
+		if self.ratings: # check to make sure ratings exists
 			ratings = {}
-			for key in self.ratings:
+			for key in self.ratings: # get the average rating for each rated recipe
 				ratings[key] = self.get_rating(key)
-			max_val = max(ratings.values())
+			max_val = max(ratings.values()) # find maximum average rating
 			ratings_max = [key for key in ratings.keys() if ratings[key] == max_val]
+			# in the case of a tie, only return recipe with lowest idea
 			return min(ratings_max)
 		else:
 			return None
@@ -106,14 +108,14 @@ class _recipe_database:
 		f = open(filename, "w")
 		for item in self.ratings:
 			for uitem in self.ratings[item]:
-				thisrating = str(self.ratings[item][uitem])			
+				thisrating = str(self.ratings[item][uitem])
 				tempstring = item + "::" + uitem + "::" + thisrating + "\n"
 				f.write(tempstring)
 		f.close()
 
 if __name__ == "__main__":
 	rdb = _recipe_database()
-	
+
 	rdb.load_ratings('origratings.txt')
 	rdb.set_user_recipe_rating('100000', '0', 5)
 	rdb.write_ratings('ratings.txt')
