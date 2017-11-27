@@ -10,4 +10,6 @@ similar. This is because the data that we had was formatted differently from tha
 
 Ultimately, our vision is to create a webservice that allows the user to view recipes and to rate them, like in the JavaScript 
 milestone. However, our project will be different in that it uses different data (obviously) and that it adds functionality. 
-This will include rating on the full one-to-five scale, 
+This will include rating on the full one-to-five scale, search by ingredients which will allow the user to better tailor his 
+or her recommendations, and saved data from previous sessions. As we proceed with the project, we will likely add further 
+functionality upon seeing how it comes together. This, however, is our starting point.
