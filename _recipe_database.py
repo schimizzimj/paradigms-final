@@ -1,64 +1,70 @@
 import json
 
 class _recipe_database:
-	def __init__(self):
+	def __init__(self):#initializes data dictionaries 
 		self.recipes = {}
-		self.users = {}
 		self.ratings = {}
 
-	def load_recipes(self, recipe_file):
+	def load_recipes(self, recipe_file):#loads in all recipe data from file using json library
 		self.recipes = json.load(open(recipe_file))
 
-	def get_recipe_by_id(self, rid):
+	def get_recipe_by_id(self, rid):# access a recipe by its id, as in movie database
 		output = {}
 		try:
-			output = self.recipes[rid]
-		except KeyError as ex:
+			output = self.recipes[rid]#see if id exists
+		except KeyError as ex:#if not show error
 			output['result'] = 'error'
 			output['message'] = 'key not found'
-		return output
+		return output#return dictionary if it exists
 
-	def get_recipe_by_ingredient(self, ingr):
+	def get_recipe_by_ingredient(self, ingr):#searches for all recipes that use a certain ingredient
 		output = {}
-		for arec in self.recipes:
-			if ingr.lower() in self.recipes[arec]["ingredients"].lower():
-				output[arec] = {}
+		for arec in self.recipes:#loop through all recipes
+			if ingr.lower() in self.recipes[arec]["ingredients"].lower():#check if ingredient string is in ingredients (using all lower case)
+				output[arec] = {}#add any results do output dictionary
 				output[arec] = self.recipes[arec]
 		return output
 
-	def load_ratings(self, ratings_file):
-		f = open(ratings_file, "r")
-		for listing in f:
+	def set_recipe(self, datadict):
+		current = 0
+		for keys in self.recipes:#find highest recipe id
+			if int(keys) > current:
+				current = int(keys)
+		self.recipes[str(current+1)] = datadict#make the data dictionary the value of a key that is the new greatest recipe id
+
+	def load_ratings(self, ratings_file):# load all ratings from file
+		f = open(ratings_file, "r")#open file
+		for listing in f:#go though each line
 			listing = listing.strip()
-			listing = listing.split("::")
-			if listing[0] not in self.ratings:
+			listing = listing.split("::")#separate parts into a list
+			if listing[0] not in self.ratings:#create dictionary if need be
 				self.ratings[listing[0]] = {}
-			self.ratings[listing[0]][listing[1]] = int(listing[2])
+			self.ratings[listing[0]][listing[1]] = int(listing[2])#save user-score pair in dictionary corresponding to recipe id
 		f.close()
 
 	def get_rating(self, rid):
 		counter = 0
 		total = 0
-		if rid not in self.ratings:
+		if rid not in self.ratings:#if the recipe doesn't exist, return an error
 			return {"result":"error", "message":"key not found"}
 		thismap = self.ratings[rid]
-		for key in thismap:
-			total += thismap[key]
-			counter += 1
-		avgrat=float(total)/float(counter)
+		for key in thismap:#go through all users in recipe dictionary
+			total += thismap[key]#add the rating to the total
+			counter += 1#increment the counter
+		avgrat=float(total)/float(counter)#divide total by counter to find average rating
 		return avgrat
 
 	def get_highest_nonrated_recipe(self, user, recipedict):
-		current = "0"
-		flipped = 1
-		for item in recipedict:
-			if user in self.ratings[current]:
-				current = item
-				flipped = 0
-			elif self.get_rating(current) > self.get_rating(item):
-				current = item
-				flipped = 1
-		if flipped == 0:
+		current = "0"#set an initial recipe
+		flipped = 1#flag variable to check if all recipes have been rated
+		for item in recipedict:#for all recipes in the given dictionary (this allows for ingredient search)
+			if user in self.ratings[current]:#if the user has rated it already
+				current = item#move on to the next recipe
+				flipped = 0#set the flag to represent that the most recent recipe was already rated
+			elif self.get_rating(current) > self.get_rating(item):# if the recipe is unrated by the user and the best checked yet
+				current = item#set it as the current best
+				flipped = 1#set the flag to indicate it has not been rated
+		if flipped == 0:# if the current current has already been rated (this will only happen if the user has rated all recipes)
 			return {'result':'error', 'message':'all recipes already rated'}
 		else:
 			return current
@@ -77,43 +83,43 @@ class _recipe_database:
 			return None
 
 	def set_user_recipe_rating(self, user, rid, rating):
-		if rid not in self.ratings:
+		if rid not in self.ratings:#add the recipe if it doesn't exist
 			self.ratings[rid] = {}
-		self.ratings[rid][user] = int(rating)
+		self.ratings[rid][user] = int(rating)#set the rating for the user
 
 	def get_user_recipe_rating(self, user, rid):
-		if rid not in self.ratings:
+		if rid not in self.ratings:# if the recipe doesn't exits, return an error
 			return {'result':'error', 'message':'recipe not found'}
-		if user not in self.ratings[rid]:
+		if user not in self.ratings[rid]:# if the user hasn't rated it, return an error
 			return {'result':'error', 'message':'user not found (for this recipe)'}
-		else:
+		else:#otherwise return the rating
 			return self.ratings[rid][user]
 
-	def delete_all_all(self):
+	def delete_all_all(self):#clear all data (for reset, probably)
 		self.ratings.clear()
 		self.recipes.clear()
 
-	def delete_all_recipes(self):
+	def delete_all_recipes(self):#clear only recipe data
 		self.recipes.clear()
 
-	def delete_all_ratings(self):
+	def delete_all_ratings(self):#clear only rating data
 		self.ratings.clear()
 
-	def write_recipes(self, filename):
+	def write_recipes(self, filename):#write the current recipe data to the file to save it
 		f = open(filename, "w")
 		f.write(json.dumps(self.recipes))
 		f.close
 
-	def write_ratings(self, filename):
-		f = open(filename, "w")
-		for item in self.ratings:
-			for uitem in self.ratings[item]:
-				thisrating = str(self.ratings[item][uitem])
-				tempstring = item + "::" + uitem + "::" + thisrating + "\n"
-				f.write(tempstring)
+	def write_ratings(self, filename):#save the current rating data
+		f = open(filename, "w")#open file
+		for item in self.ratings:#loop through all recipes
+			for uitem in self.ratings[item]:#loop through all of the ratings for this recipe
+				thisrating = str(self.ratings[item][uitem])#get the rating value as a string
+				tempstring = item + "::" + uitem + "::" + thisrating + "\n" #combine strings formatted for the file in rid::uid::rating form
+				f.write(tempstring)#write this to the file
 		f.close()
 
-if __name__ == "__main__":
+if __name__ == "__main__":#test stuff
 	rdb = _recipe_database()
 
 	rdb.load_ratings('origratings.txt')
