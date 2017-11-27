@@ -12,7 +12,7 @@ class _recipe_database:
 	def get_recipe_by_id(self, rid):
 		output = {}
 		try:
-			output = self.recipes[int(rid)]
+			output = self.recipes[rid]
 		except KeyError as ex:
 			output['result'] = 'error'
 			output['message'] = 'key not found'
@@ -20,7 +20,14 @@ class _recipe_database:
 			
 	def get_recipe_by_ingredient(self, ingr):
 		output = {}
-		for arec, arecv in self.recipes:
-			if ingr in arec["ingredients"]:
+		for arec in self.recipes:
+			if ingr.lower() in self.recipes[arec]["ingredients"].lower():
 				output[arec] = {}
-				output[arec] = arecv
+				output[arec] = self.recipes[arec]
+		return output
+		
+if __name__ == "__main__":
+	rdb = _recipe_database()
+	
+	rdb.load_recipes('recipe.txt')
+	print(rdb.get_recipe_by_ingredient('seedless'))
