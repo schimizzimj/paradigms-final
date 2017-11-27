@@ -25,15 +25,25 @@ class _recipe_database:
 				output[arec] = {}
 				output[arec] = self.recipes[arec]
 		return output
+<<<<<<< HEAD
 
+=======
+		
+>>>>>>> 65e0fef439b74eb65a95a072e545164edf5ceb7c
 	def load_ratings(self, ratings_file):
 		f = open(ratings_file, "r")
 		for listing in f:
 			listing = listing.strip()
 			listing = listing.split("::")
+<<<<<<< HEAD
 			if int(listing[1]) not in self.ratings:
 				self.ratings[int(listing[1])] = {}
 			self.ratings[listing[1]][listing[0]] = int(listing[2])
+=======
+			if listing[0] not in self.ratings:
+				self.ratings[listing[0]] = {}
+			self.ratings[listing[0]][listing[1]] = int(listing[2])	
+>>>>>>> 65e0fef439b74eb65a95a072e545164edf5ceb7c
 		f.close()
 
 	def get_rating(self, rid):
@@ -78,9 +88,44 @@ class _recipe_database:
 		if rid not in self.ratings:
 			self.ratings[rid] = {}
 		self.ratings[rid][user] = int(rating)
+<<<<<<< HEAD
 
 	def delete_ratings(self):
 		self.ratings = {}
+=======
+	
+	def get_user_recipe_rating(self, user, rid):
+		if rid not in self.ratings:
+			return {'result':'error', 'message':'recipe not found'}
+		if user not in self.ratings[rid]:
+			return {'result':'error', 'message':'user not found (for this recipe)'}
+		else:
+			return self.ratings[rid][user]
+	
+	def delete_all_all(self):
+		self.ratings.clear()
+		self.recipes.clear()
+		
+	def delete_all_recipes(self):
+		self.recipes.clear()
+	
+	def delete_all_ratings(self):
+		self.ratings.clear()
+
+	def write_recipes(self, filename):
+		f = open(filename, "w")
+		f.write(json.dumps(self.recipes))
+		f.close
+		
+	def write_ratings(self, filename):
+		f = open(filename, "w")
+		for item in self.ratings:
+			for uitem in self.ratings[item]:
+				thisrating = string(self.ratings[item][uitem])			
+				tempstring = item + "::" + uitem + "::" + thisrating + "\n"
+				f.write(tempstring)
+		f.close()
+>>>>>>> 65e0fef439b74eb65a95a072e545164edf5ceb7c
 
 if __name__ == "__main__":
 	rdb = _recipe_database()
