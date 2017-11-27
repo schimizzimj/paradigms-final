@@ -1,0 +1,13 @@
+Our API is somewhat similar to the _movie_database API in that it involves dictionaries of data and associated ratings. In our 
+case, the data is about recipes, not movies. The basic functionalities are mostly similar: functions like load, get, and set 
+are used in the same way. One difference, however, is the ability to search by ingredient as well as by recipe id. This 
+function, get_recipe_by_ingredient, takes in a string and returns a dictionary containing those recipes that contain that 
+ingredient. This dictionary can then be passed to the get_highest_unrated_recipe function. This allows the user to filter 
+recipe suggestions according to a particular ingredient that needs to be used. Our API also has the added functionality of 
+writing ratings to a file so that the server remembers inputted ratings even if it is shut down and restarted. Of course, 
+certain elements of the code itself is quite different from the _movie_database code even when the functionalities are quite 
+similar. This is because the data that we had was formatted differently from that of the movie database.
+
+Ultimately, our vision is to create a webservice that allows the user to view recipes and to rate them, like in the JavaScript 
+milestone. However, our project will be different in that it uses different data (obviously) and that it adds functionality. 
+This will include rating on the full one-to-five scale, 
