@@ -31,9 +31,6 @@ class _recipe_database:
 		for listing in f:
 			listing = listing.strip()
 			listing = listing.split("::")
-			if int(listing[1]) not in self.ratings:
-				self.ratings[int(listing[1])] = {}
-			self.ratings[listing[1]][listing[0]] = int(listing[2])
 			if listing[0] not in self.ratings:
 				self.ratings[listing[0]] = {}
 			self.ratings[listing[0]][listing[1]] = int(listing[2])

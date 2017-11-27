@@ -7,9 +7,9 @@ class TestRecipeDatabase(unittest.TestCase):
     rdb = _recipe_database()
 
     def reset_data(self):
-        # self.rdb.delete_ratings()
+        self.rdb.delete_all_ratings()
         self.rdb.load_recipes('recipe.txt')
-        # self.rdb.load_ratings('ratings.txt')
+        self.rdb.load_ratings('ratings.txt')
 
     def test_get_recipe_by_id(self):
         self.reset_data()
@@ -30,7 +30,10 @@ class TestRecipeDatabase(unittest.TestCase):
 
     def test_get_highest_rated_recipe(self):
         self.reset_data()
-        rid = self.rdb.get_highest_rated_recipe()
+        rid = self.rdb.get_highest_nonrated_recipe('4', self.rdb.recipes)
+        rid2 = self.rdb.get_highest_rated_recipe()
+        print(rid)
+        print(rid2)
 
 if __name__ == "__main__":
     unittest.main()
