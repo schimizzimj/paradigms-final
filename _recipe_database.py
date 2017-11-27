@@ -47,10 +47,10 @@ class _recipe_database:
 			counter += 1
 		avgrat=float(total)/float(counter)
 		return {"rating":avgrat, "recipe_id":int(rid), "result":"success"}
-	def get_highest_rated_recipe(self, user):
+	def get_highest_rated_recipe(self, user, recipedict):
 		current = "0"
 		flipped = 1
-		for item in self.ratings:
+		for item in recipedict:
 			if user in self.ratings[current]:
 				current = item
 				flipped = 0
@@ -61,7 +61,11 @@ class _recipe_database:
 			return {'result':'error', 'message':'all recipes already rated'}
 		else:
 			return self.ratings[current]
-				
+	
+	def set_user_recipe_rating(self, user, rid, rating):
+		if rid not in self.ratings:
+			self.ratings[rid] = {}
+		self.ratings[rid][user] = int(rating)
 		
 if __name__ == "__main__":
 	rdb = _recipe_database()
