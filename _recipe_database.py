@@ -5,10 +5,10 @@ class _recipe_database:
 		self.recipes = {}
 		self.users = {}
 		self.ratings = {}
-	
+
 	def load_recipes(self, recipe_file):
 		self.recipes = json.load(open(recipe_file))
-		
+
 	def get_recipe_by_id(self, rid):
 		output = {}
 		try:
@@ -17,7 +17,7 @@ class _recipe_database:
 			output['result'] = 'error'
 			output['message'] = 'key not found'
 		return output
-			
+
 	def get_recipe_by_ingredient(self, ingr):
 		output = {}
 		for arec in self.recipes:
@@ -87,6 +87,6 @@ class _recipe_database:
 
 if __name__ == "__main__":
 	rdb = _recipe_database()
-	
+
 	rdb.load_recipes('recipe.txt')
 	print(rdb.get_recipe_by_ingredient('seedless'))
