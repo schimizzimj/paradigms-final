@@ -31,9 +31,9 @@ class _recipe_database:
 		for listing in f:
 			listing = listing.strip()
 			listing = listing.split("::")
-			if int(listing[1]) not in self.ratings:
-				self.ratings[int(listing[1])] = {}
-			self.ratings[listing[1]][listing[0]] = int(listing[2])	
+			if listing[0] not in self.ratings:
+				self.ratings[listing[0]] = {}
+			self.ratings[listing[0]][listing[1]] = int(listing[2])	
 		f.close()
 		
 	def get_rating(self, rid):
@@ -84,6 +84,20 @@ class _recipe_database:
 	
 	def delete_all_ratings(self):
 		self.ratings.clear()
+
+	def write_recipes(self, filename):
+		f = open(filename, "w")
+		f.write(json.dumps(self.recipes))
+		f.close
+		
+	def write_ratings(self, filename):
+		f = open(filename, "w")
+		for item in self.ratings:
+			for uitem in self.ratings[item]:
+				thisrating = string(self.ratings[item][uitem])			
+				tempstring = item + "::" + uitem + "::" + thisrating + "\n"
+				f.write(tempstring)
+		f.close()
 
 if __name__ == "__main__":
 	rdb = _recipe_database()
