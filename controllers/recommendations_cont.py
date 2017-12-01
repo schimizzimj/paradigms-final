@@ -11,6 +11,7 @@ class RecommendationsController(object):
 
 	def DELETE(self):
 		rdb.delete_all_ratings() #clear enough
+		return json.dumps({'result':'success'})
 
 	def GET_KEY(self, key):
 		therecipe = rdb.get_highest_nonrated_recipe(key, rdb.recipes) #this is the recipe id to be recommended
