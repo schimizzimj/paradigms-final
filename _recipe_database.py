@@ -22,11 +22,16 @@ class _recipe_database:
 			output['message'] = 'key not found'
 		return output#return dictionary if it exists
 
-	def get_recipe_by_ingredient(self, ingr):#searches for all recipes that use a certain ingredient
+	def get_recipe_by_ingredient(self, listOIngredients):#searches for all recipes that use a certain ingredient
 		output = {}
+		found = 0
 		for arec in self.recipes:#loop through all recipes
-			if ingr.lower() in self.recipes[arec]["ingredients"].lower():#check if ingredient string is in ingredients (using all lower case)
-				output[arec] = {}#add any results do output dictionary
+			found = 1
+			for food in listOIngredients:
+				if food.lower() not in self.recipes[arec]["ingredients"].lower():#check if ingredient string is in ingredients (using all lower case)
+					found = 0
+			if found == 1:
+				output[arec] = {}#add any results to output dictionary
 				output[arec] = self.recipes[arec]
 		return output
 
@@ -72,10 +77,7 @@ class _recipe_database:
 			elif self.get_rating(current) > self.get_rating(item):# if the recipe is unrated by the user and the best checked yet
 				current = item#set it as the current best
 				flipped = 1#set the flag to indicate it has not been rated
-		if flipped == 0:# if the current current has already been rated (this will only happen if the user has rated all recipes)
-			return {'result':'error', 'message':'all recipes already rated'}
-		else:
-			return current
+		return current
 
 	def get_highest_rated_recipe(self):
 		# used to get the highest rated recipe overall
