@@ -6,10 +6,9 @@ def start_service():
     d = dict()
     dispatcher = cherrypy.dispatch.RoutesDispatcher()
     resetController = ResetController()
-	resetKeyController = ResetKeyController()
-	recipesController = RecipesController()
-	recController = RecommendationsController()
-	ratingsController = RatingsController()
+    recipesController = RecipesController()
+    recController = RecommendationsController()
+    ratingsController = RatingsController()
 
 	### Link up dispatcher to functions
 	# Reset Functions
