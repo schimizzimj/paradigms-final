@@ -12,44 +12,44 @@ def start_service():
 
 	### Link up dispatcher to functions
 	# Reset Functions
-	dispatcher.connect('dict_put', '/reset/',
-		controller = resetController, action = 'PUT')
+    dispatcher.connect('dict_put', '/reset/',
+        controller = resetController, action = 'PUT')
 
 	# Recipe Functions
-	dispatcher.connect('recipes_get', '/recipes/',
-		controller = recipesController, action = 'GET',
-		conditions = dict(method=['GET']))
-	dispatcher.connect('recipes_post', '/recipes/',
-		controller = recipesController, action = 'POST',
-		conditions = dict(method=['POST']))
-	dispatcher.connect('recipes_delete', '/recipes/',
-		controller = recipesController, action = 'DELETE',
-		conditions = dict(method=['DELETE']))
-	dispatcher.connect('recipes_get_key', '/recipes/:key',
-		controller = recipesController, action = 'GET_KEY',
-		conditions = dict(method=['GET']))
-	dispatcher.connect('recipes_put', '/recipes/:key',
-		controller = recipesController, action = 'PUT',
-		conditions = dict(method=['PUT']))
-	dispatcher.connect('recipes_get_query', '/recipes/?key=value',
-		controller = recipesController, action = 'GET_QUERY',
-		conditions = dict(method=['GET']))
+    dispatcher.connect('recipes_get', '/recipes/',
+        controller = recipesController, action = 'GET',
+        conditions = dict(method=['GET']))
+    dispatcher.connect('recipes_post', '/recipes/',
+        controller = recipesController, action = 'POST',
+        conditions = dict(method=['POST']))
+    dispatcher.connect('recipes_delete', '/recipes/',
+        controller = recipesController, action = 'DELETE',
+        conditions = dict(method=['DELETE']))
+    dispatcher.connect('recipes_get_key', '/recipes/:key',
+        controller = recipesController, action = 'GET_KEY',
+        conditions = dict(method=['GET'])
+    dispatcher.connect('recipes_put', '/recipes/:key',
+        controller = recipesController, action = 'PUT',
+        conditions = dict(method=['PUT']))
+    dispatcher.connect('recipes_get_query', '/recipes/?key=value',
+        controller = recipesController, action = 'GET_QUERY',
+        conditions = dict(method=['GET']))
 
 	# Recommendation Functions
-	dispatcher.connect('rec_delete', '/recommendations/',
-		controller = recController, action = 'DELETE',
-		conditions = dict(method=['DELETE']))
-	dispatcher.connect('rec_get_key', '/recommendations/:key',
-		controller = recController, action = 'GET_KEY',
-		conditions = dict(method=['GET']))
-	dispatcher.connect('rec_put_key', '/recommendations/:key',
-		controller = recController, action = 'PUT_KEY',
-		conditions = dict(method=['PUT']))
+    dispatcher.connect('rec_delete', '/recommendations/',
+        controller = recController, action = 'DELETE',
+        conditions = dict(method=['DELETE']))
+    dispatcher.connect('rec_get_key', '/recommendations/:key',
+        controller = recController, action = 'GET_KEY',
+        conditions = dict(method=['GET']))
+    dispatcher.connect('rec_put_key', '/recommendations/:key',
+        controller = recController, action = 'PUT_KEY',
+        conditions = dict(method=['PUT']))
 
 	# Ratings Functions
-	dispatcher.connect('ratings_get', '/ratings/:key',
-		controller = ratingsController, action = 'GET',
-		conditions = dict(method=['GET']))
+    dispatcher.connect('ratings_get', '/ratings/:key',
+        controller = ratingsController, action = 'GET',
+        conditions = dict(method=['GET']))
 
 	# configuration for the server
 	conf = {
