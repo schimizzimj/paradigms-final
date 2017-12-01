@@ -9,4 +9,4 @@ class RatingsController(object):
 		pass
 
 	def GET(self, key):
-		return json.dumps({'rating':rdb.get_rating(key), 'recipe_id':key)
+		return json.dumps({'rating':rdb.get_rating(key), 'recipe_id':key})

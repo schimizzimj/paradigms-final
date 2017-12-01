@@ -81,7 +81,7 @@ class _recipe_database:
 		if flipped == 1:
 			return current
 		else:
-			return ''-1'
+			return '-1'
 
 	def get_highest_rated_recipe(self):
 		# used to get the highest rated recipe overall
