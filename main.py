@@ -52,18 +52,18 @@ def start_service():
         conditions = dict(method=['GET']))
 
 	# configuration for the server
-	conf = {
-			'global': {
-						'server.socket_host': 'student04.cse.nd.edu',
-						'server.socket_port': 51069,
-					  },
-			'/': {'request.dispatch': dispatcher} }
+    conf = {
+            'global': {
+                        'server.socket_host': 'student04.cse.nd.edu',
+                        'server.socket_port': 51069,
+                        },
+            '/': {'request.dispatch': dispatcher} }
 
 	# starting the server
-	cherrypy.config.update(conf)
-	app = cherrypy.tree.mount(None, config=conf)
-	cherrypy.quickstart(app)
+    cherrypy.config.update(conf)
+    app = cherrypy.tree.mount(None, config=conf)
+    cherrypy.quickstart(app)
 
 
 if __name__ == '__main__':
-	start_service()
+    start_service()
