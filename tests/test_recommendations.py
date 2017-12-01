@@ -24,30 +24,30 @@ class TestRecommendations(unittest.TestCase):
 
     def test_recommendations_get(self):
         self.reset_data()
-        user_id = 149
+        user_id = 300
         r = requests.get(self.RECOMMENDATIONS_URL + str(user_id))
         self.assertTrue(self.is_json(r.content.decode()))
         resp = json.loads(r.content.decode())
-        self.assertEqual(resp['movie_id'], 989)
+        self.assertEqual(resp['recipe_id'], 684)
 
     def test_recommendations_put(self):
         self.reset_data()
-        user_id = 199
-        movie_id = 32
+        user_id = 300
+        recipe_id = 17
         rating = 5
 
         m = {}
-        m['movie_id'] = movie_id
+        m['recipe_id'] = recipe_id
         m['rating'] = rating
-        r = requests.put(self.RECOMMENDATIONS_URL + str(user_id), data = json.dumps(m))
+        r = requests.put(self.RECOMMENDATIONS_URL + user_id, data = json.dumps(m))
         self.assertTrue(self.is_json(r.content.decode()))
         resp = json.loads(r.content.decode())
         self.assertEqual(resp['result'], 'success')
 
-        r = requests.get(self.RATINGS_URL + str(movie_id))
+        r = requests.get(self.RATINGS_URL + recipe_id)
         self.assertTrue(self.is_json(r.content.decode()))
         resp = json.loads(r.content.decode())
-        self.assertEqual(resp['rating'], 3.947054930509596) #3.945731303772336)
+        self.assertEqual(resp['rating'], 3.5714285714285716) 
 
 if __name__ == "__main__":
     unittest.main()
