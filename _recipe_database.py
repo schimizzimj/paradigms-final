@@ -78,7 +78,7 @@ class _recipe_database:
 			elif self.get_rating(current) > self.get_rating(item):# if the recipe is unrated by the user and the best checked yet
 				current = item#set it as the current best
 				flipped = 1#set the flag to indicate it has not been rated
-			print("{} > {}".format(self.get_rating(current), self.get_rating(item)))
+			#print("{} > {}".format(self.get_rating(current), self.get_rating(item)))
 		if flipped == 1:
 			return current
 		else:
