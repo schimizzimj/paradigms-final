@@ -11,7 +11,7 @@ class ResetController(object):
 
 	def PUT(self):
 		rdb.__init__()
-		rdb.load_recipes('/data/origrecipe.txt')
-		rdb.load_ratings('/data/origratings.txt')
+		rdb.load_recipes('data/origrecipe.txt')
+		rdb.load_ratings('data/origratings.txt')
 		output = {'result': 'success'}
 		return json.dumps(output)
