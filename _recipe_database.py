@@ -6,7 +6,7 @@ class _recipe_database:
 		self.ratings = {}
 
 	def get_recipes(self):
-        return self.recipes
+		return self.recipes
 
 	def load_recipes(self, recipe_file):#loads in all recipe data from file using json library
 		f = open(recipe_file, "r")
