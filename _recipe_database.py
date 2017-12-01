@@ -1,9 +1,12 @@
 import json
 
 class _recipe_database:
-	def __init__(self):#initializes data dictionaries 
+	def __init__(self):#initializes data dictionaries
 		self.recipes = {}
 		self.ratings = {}
+
+	def get_recipes(self):
+        return self.recipes
 
 	def load_recipes(self, recipe_file):#loads in all recipe data from file using json library
 		f = open(recipe_file, "r")
@@ -27,7 +30,10 @@ class _recipe_database:
 				output[arec] = self.recipes[arec]
 		return output
 
-	def set_recipe(self, datadict):
+	def set_recipe(self, rid, info):
+		self.recipes[rid] = info
+
+	def add_recipe(self, datadict):
 		current = 0
 		for keys in self.recipes:#find highest recipe id
 			if int(keys) > current:

@@ -20,7 +20,7 @@ def start_service():
         controller = resetController, action = 'PUT')
 
 	# Recipe Functions
-    dispatcher.connect('recipes_get_query', '/recipes/?key=value',
+    dispatcher.connect('recipes_get_query', '/recipes/:ingredients',
         controller = recipesController, action = 'GET_QUERY',
         conditions = dict(method=['GET']))
     dispatcher.connect('recipes_get', '/recipes/',
