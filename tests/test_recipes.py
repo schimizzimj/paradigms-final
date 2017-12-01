@@ -27,9 +27,10 @@ class TestRecipes(unittest.TestCase):
         r = requests.get(self.RECIPES_URL + str(recipe_id))
         self.assertTrue(self.is_json(r.content.decode('utf-8')))
         resp = json.loads(r.content.decode('utf-8'))
-        self.assertEqual(resp['name'], 'Yummy Slice-and-Bake Cookies')
-        self.assertEqual(resp['datePublished'], '2012-08-15')
-        self.assertEqual(resp['url'], 'http://thepioneerwoman.com/cooking/2012/08/yummy-slice-and-bake-cookies/')
+        recipe = resp['recipe']
+        self.assertEqual(recipe['name'], 'Yummy Slice-and-Bake Cookies')
+        self.assertEqual(recipe['datePublished'], '2012-08-15')
+        self.assertEqual(recipe['url'], 'http://thepioneerwoman.com/cooking/2012/08/yummy-slice-and-bake-cookies/')
 
     def test_recipes_put(self):
         self.reset_data()
@@ -38,8 +39,9 @@ class TestRecipes(unittest.TestCase):
         r = requests.get(self.RECIPES_URL + str(recipe_id))
         self.assertTrue(self.is_json(r.content.decode('utf-8')))
         resp = json.loads(r.content.decode('utf-8'))
-        self.assertEqual(resp['name'], 'Frito Chili Pie')
-        self.assertEqual(resp['url'], 'http://thepioneerwoman.com/cooking/2011/09/frito-chili-pie/')
+        recipe = resp['recipe']
+        self.assertEqual(recipe['name'], 'Frito Chili Pie')
+        self.assertEqual(recipe['url'], 'http://thepioneerwoman.com/cooking/2011/09/frito-chili-pie/')
 
         m = {}
         m['name'] = 'Food'
@@ -49,21 +51,22 @@ class TestRecipes(unittest.TestCase):
         resp = json.loads(r.content.decode('utf-8'))
         self.assertEqual(resp['result'], 'success')
 
-        r = requests.get(self.MOVIES_URL + str(movie_id))
+        r = requests.get(self.RECIPES_URL + str(recipe_id))
         self.assertTrue(self.is_json(r.content.decode('utf-8')))
         resp = json.loads(r.content.decode('utf-8'))
-        self.assertEqual(resp['name'], m['name'])
-        self.assertEqual(resp['ingredients'], m['ingredients'])
+        recipe2 = resp['recipe']
+        self.assertEqual(recipe2['name'], m['name'])
+        self.assertEqual(recipe2['ingredients'], m['ingredients'])
 
     def test_recipes_query(self):
         self.reset_data()
-
+        m = {}
         r = requests.get(self.RECIPES_URL + "query=seedless", data = json.dumps(m))
         self.assertTrue(self.is_json(r.content.decode('utf-8')))
         resp = json.loads(r.content.decode('utf-8'))
         self.assertEqual(resp['result'], 'success')
         recipe = resp['recipes']['87']
-        self.assertEqual(resp['name'], 'Watermelon Granita')
+        self.assertEqual(recipe['name'], 'Watermelon Granita')
 
 if __name__ == "__main__":
     unittest.main()

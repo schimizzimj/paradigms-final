@@ -29,9 +29,9 @@ class TestMoviesIndex(unittest.TestCase):
         resp = json.loads(r.content.decode())
 
         recipes = resp['recipes']
-        for recipe in recipes:
-            if recipe['id'] == '32':
-                testrecipe = recipe
+        for key in recipes:
+            if key == '32':
+                testrecipe = recipes[key]
 
         self.assertEqual(testrecipe['name'], 'Chicken with Mustard Cream Sauce')
         self.assertEqual(testrecipe['prepTime'], 'PT5M')
@@ -51,8 +51,9 @@ class TestMoviesIndex(unittest.TestCase):
         r = requests.get(self.RECIPES_URL + resp['id'])
         self.assertTrue(self.is_json(r.content.decode()))
         resp = json.loads(r.content.decode())
-        self.assertEqual(resp['name'], m['name'])
-        self.assertEqual(resp['ingredients'], m['ingredients'])
+        recipe = resp['recipe']
+        self.assertEqual(recipe['name'], m['name'])
+        self.assertEqual(recipe['ingredients'], m['ingredients'])
 
     def test_movies_index_delete(self):
         self.reset_data()

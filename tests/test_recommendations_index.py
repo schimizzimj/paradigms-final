@@ -4,7 +4,7 @@ import json
 
 class TestRecommendationsIndex(unittest.TestCase):
 
-    PORT_NUM = '51069' 
+    PORT_NUM = '51069'
     print("Testing Port number: ", PORT_NUM)
     SITE_URL = 'http://student04.cse.nd.edu:' + PORT_NUM
     RECOMMENDATIONS_URL = SITE_URL + '/recommendations/'
@@ -26,6 +26,7 @@ class TestRecommendationsIndex(unittest.TestCase):
 
         m = {}
         r = requests.delete(self.RECOMMENDATIONS_URL, data = json.dumps(m))
+        print(r.content)
         self.assertTrue(self.is_json(r.content.decode()))
         resp = json.loads(r.content.decode())
         self.assertEqual(resp['result'], 'success')

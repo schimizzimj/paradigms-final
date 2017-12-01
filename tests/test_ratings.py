@@ -23,9 +23,9 @@ class TestRatings(unittest.TestCase):
 
     def test_ratings_get(self):
         self.reset_data()
-        recipe_id = 420
+        recipe_id = '420'
 
-        r = requests.get(self.RATINGS_URL + str(recipe_id))
+        r = requests.get(self.RATINGS_URL + recipe_id)
         self.assertTrue(self.is_json(r.content.decode()))
         resp = json.loads(r.content.decode())
         self.assertEqual(resp['rating'], 2.875)
