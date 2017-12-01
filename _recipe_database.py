@@ -33,7 +33,7 @@ class _recipe_database:
 			if found == 1:
 				output[arec] = {}#add any results to output dictionary
 				output[arec] = self.recipes[arec]
-			return output
+		return output
 
 	def set_recipe(self, rid, info):
 		self.recipes[rid] = info
