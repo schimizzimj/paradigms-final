@@ -20,6 +20,9 @@ def start_service():
         controller = resetController, action = 'PUT')
 
 	# Recipe Functions
+    # would have rather used '/recipes/:ingredients', but wouldn't have been
+    # differentiated from '/recipes/:key' so this turned out to be a good way to handle it
+    # for our usage
     dispatcher.connect('recipes_get_query', '/recipes/query=:ingredients',
         controller = recipesController, action = 'GET_QUERY',
         conditions = dict(method=['GET']))
@@ -50,6 +53,8 @@ def start_service():
     dispatcher.connect('rec_put_key', '/recommendations/:key',
         controller = recController, action = 'PUT_KEY',
         conditions = dict(method=['PUT']))
+    # Double arguments to be passed to function in this way because it looks better and
+    # is a fairly intuitive way to do so
     dispatcher.connect('rec_get_key_query', '/recommendations/:key/:ingredients',
         controller = recController, action = 'GET_KEY_QUERY',
         conditions = dict(method=['GET']))
