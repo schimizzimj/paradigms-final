@@ -1,6 +1,10 @@
 # Import needed components
 import cherrypy
 from _recipe_database import _recipe_database
+from controllers.reset_cont import *
+from controllers.movies_cont import *
+from controllers.recommendations_cont import *
+from controllers.ratings_cont import *
 
 def start_service():
     d = dict()
