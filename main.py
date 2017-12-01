@@ -19,23 +19,23 @@ def start_service():
 		controller = resetKeyController, action = 'PUT_KEY')
 
 	# Recipe Functions
-	dispatcher.connect('movie_get', '/recipes/',
-		controller = moviesController, action = 'GET',
+	dispatcher.connect('recipes_get', '/recipes/',
+		controller = recipesController, action = 'GET',
 		conditions = dict(method=['GET']))
-	dispatcher.connect('movie_post', '/recipes/',
-		controller = moviesController, action = 'POST',
+	dispatcher.connect('recipes_post', '/recipes/',
+		controller = recipesController, action = 'POST',
 		conditions = dict(method=['POST']))
-	dispatcher.connect('movie_delete', '/recipes/',
-		controller = moviesController, action = 'DELETE',
+	dispatcher.connect('recipes_delete', '/recipes/',
+		controller = recipesController, action = 'DELETE',
 		conditions = dict(method=['DELETE']))
-	dispatcher.connect('movie_get_key', '/recipes/:key',
-		controller = moviesController, action = 'GET_KEY',
+	dispatcher.connect('recipes_get_key', '/recipes/:key',
+		controller = recipesController, action = 'GET_KEY',
 		conditions = dict(method=['GET']))
-	dispatcher.connect('movie_put', '/recipes/:key',
-		controller = moviesController, action = 'PUT',
+	dispatcher.connect('recipes_put', '/recipes/:key',
+		controller = recipesController, action = 'PUT',
 		conditions = dict(method=['PUT']))
-	dispatcher.connect('movie_delete_key', '/recipes/:key',
-		controller = moviesController, action = 'DELETE_KEY',
+	dispatcher.connect('recipes_delete_key', '/recipes/:key',
+		controller = recipesController, action = 'DELETE_KEY',
 		conditions = dict(method=['DELETE']))
 
 	# Recommendation Functions

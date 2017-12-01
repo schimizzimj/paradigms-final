@@ -2,7 +2,7 @@
 
 import cherrypy
 import re, json
-from variables import mdb
+from variables import rdb
 
 class RecommendationsController(object):
 	def __init__(self):
