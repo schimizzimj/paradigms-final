@@ -1,4 +1,5 @@
 # Marcus Schimizzi
+# Luke Napierkowski
 
 import cherrypy
 import re, json
@@ -9,4 +10,8 @@ class ResetController(object):
 		pass
 
 	def PUT(self):
-		rdb.init()
+		rdb.__init__()
+		rdb.load_movies('/data/origrecipe.txt')
+		rdb.load_ratings('/data/origratings.txt')
+		output = {'result': 'success'}
+		return json.dumps(output)

@@ -5,7 +5,7 @@ from _recipe_database import _recipe_database
 def start_service():
     d = dict()
     dispatcher = cherrypy.dispatch.RoutesDispatcher()
-	resetController = ResetController()
+    resetController = ResetController()
 	resetKeyController = ResetKeyController()
 	recipesController = RecipesController()
 	recController = RecommendationsController()
@@ -15,8 +15,6 @@ def start_service():
 	# Reset Functions
 	dispatcher.connect('dict_put', '/reset/',
 		controller = resetController, action = 'PUT')
-	dispatcher.connect('dict_key_put', '/reset/:key',
-		controller = resetKeyController, action = 'PUT_KEY')
 
 	# Recipe Functions
 	dispatcher.connect('recipes_get', '/recipes/',
@@ -34,9 +32,9 @@ def start_service():
 	dispatcher.connect('recipes_put', '/recipes/:key',
 		controller = recipesController, action = 'PUT',
 		conditions = dict(method=['PUT']))
-	dispatcher.connect('recipes_delete_key', '/recipes/:key',
-		controller = recipesController, action = 'DELETE_KEY',
-		conditions = dict(method=['DELETE']))
+	dispatcher.connect('recipes_get_query', '/recipes/?key=value',
+		controller = recipesController, action = 'GET_QUERY',
+		conditions = dict(method=['GET']))
 
 	# Recommendation Functions
 	dispatcher.connect('rec_delete', '/recommendations/',
