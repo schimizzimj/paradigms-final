@@ -14,7 +14,7 @@ class RecommendationsController(object):
 
 	def GET_KEY(self, key):
 		therecipe = get_highest_nonrated_recipe(key)
-		if therecipe == "0":
+		if therecipe == "-1":
 			return json.dumps({'result':'error','message':'no new recipes found'})
 		return json.dumps({'recipe_id': therecipe, 'result':'success'})
 

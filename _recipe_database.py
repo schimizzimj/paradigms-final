@@ -33,7 +33,7 @@ class _recipe_database:
 			if found == 1:
 				output[arec] = {}#add any results to output dictionary
 				output[arec] = self.recipes[arec]
-		return output
+			return output
 
 	def set_recipe(self, rid, info):
 		self.recipes[rid] = info
@@ -78,7 +78,10 @@ class _recipe_database:
 			elif self.get_rating(current) > self.get_rating(item):# if the recipe is unrated by the user and the best checked yet
 				current = item#set it as the current best
 				flipped = 1#set the flag to indicate it has not been rated
-		return current
+		if flipped == 1:
+			return current
+		else:
+			return ''-1'
 
 	def get_highest_rated_recipe(self):
 		# used to get the highest rated recipe overall
