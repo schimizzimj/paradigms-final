@@ -27,7 +27,7 @@ def start_service():
         conditions = dict(method=['DELETE']))
     dispatcher.connect('recipes_get_key', '/recipes/:key',
         controller = recipesController, action = 'GET_KEY',
-        conditions = dict(method=['GET'])
+        conditions = dict(method=['GET']))
     dispatcher.connect('recipes_put', '/recipes/:key',
         controller = recipesController, action = 'PUT',
         conditions = dict(method=['PUT']))
