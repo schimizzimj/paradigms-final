@@ -1,7 +1,7 @@
 import json
 
 class _recipe_database:
-	def __init__(self):#initializes data dictionaries 
+	def __init__(self):#initializes data dictionaries
 		self.recipes = {}
 		self.ratings = {}
 
@@ -66,10 +66,7 @@ class _recipe_database:
 			elif self.get_rating(current) > self.get_rating(item):# if the recipe is unrated by the user and the best checked yet
 				current = item#set it as the current best
 				flipped = 1#set the flag to indicate it has not been rated
-		if flipped == 0:# if the current current has already been rated (this will only happen if the user has rated all recipes)
-			return {'result':'error', 'message':'all recipes already rated'}
-		else:
-			return current
+		return current
 
 	def get_highest_rated_recipe(self):
 		# used to get the highest rated recipe overall
