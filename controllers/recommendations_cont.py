@@ -25,9 +25,6 @@ class RecommendationsController(object):
 
 	def GET_KEY_QUERY(self, key, ingredients):
 		ingredient_list = ingredients.split('&')
-		print(ingredient_list)
-		print(key)
 		refined = rdb.get_recipe_by_ingredient(ingredient_list)
-		print(refined)
 		highest = rdb.get_highest_nonrated_recipe(key, refined)
 		return json.dumps({'recipe_id': highest, 'result': 'success'})
