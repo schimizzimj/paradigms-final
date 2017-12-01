@@ -50,6 +50,9 @@ def start_service():
     dispatcher.connect('rec_put_key', '/recommendations/:key',
         controller = recController, action = 'PUT_KEY',
         conditions = dict(method=['PUT']))
+    dispatcher.connect('rec_get_key_query', '/recommendations/:key/:ingredients',
+        controller = recController, action = 'GET_KEY_QUERY',
+        conditions = dict(method=['GET']))
 
 	# Ratings Functions
     dispatcher.connect('ratings_get', '/ratings/:key',
