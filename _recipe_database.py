@@ -44,6 +44,7 @@ class _recipe_database:
 			if int(keys) > current:
 				current = int(keys)
 		self.recipes[str(current+1)] = datadict#make the data dictionary the value of a key that is the new greatest recipe id
+		return str(current+1)
 
 	def load_ratings(self, ratings_file):# load all ratings from file
 		f = open(ratings_file, "r")#open file

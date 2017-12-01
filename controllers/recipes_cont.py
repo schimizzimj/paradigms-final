@@ -17,8 +17,8 @@ class RecipesController(object):
 	def POST(self):
 		rawData = cherrypy.request.body.read(int(cherrypy.request.headers['Content-Length']))
 		data = json.loads(rawData)
-		rdb.add_recipe(data)
-		output = {'result': 'success', 'id': mid}
+		rid = rdb.add_recipe(data)
+		output = {'result': 'success', 'id': rid}
 		return json.dumps(output)
 
 	def DELETE(self):
@@ -29,7 +29,6 @@ class RecipesController(object):
 
 	## Key-specific functions
 	def GET_KEY(self, key):
-		key = int(key)
 		if key in rdb.recipes:
 			recipe_output = {}
 			recipe_output['result'] = 'success'
@@ -41,7 +40,6 @@ class RecipesController(object):
 		return json.dumps(recipe_output)
 
 	def PUT(self, key):
-		key = int(key)
 		rawData = cherrypy.request.body.read(int(cherrypy.request.headers['Content-Length']))
 		data = json.loads(rawData)
 		mdb.set_movie(key, data)
