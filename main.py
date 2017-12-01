@@ -20,6 +20,9 @@ def start_service():
         controller = resetController, action = 'PUT')
 
 	# Recipe Functions
+    dispatcher.connect('recipes_get_query', '/recipes/?key=value',
+        controller = recipesController, action = 'GET_QUERY',
+        conditions = dict(method=['GET']))
     dispatcher.connect('recipes_get', '/recipes/',
         controller = recipesController, action = 'GET',
         conditions = dict(method=['GET']))
@@ -35,9 +38,7 @@ def start_service():
     dispatcher.connect('recipes_put', '/recipes/:key',
         controller = recipesController, action = 'PUT',
         conditions = dict(method=['PUT']))
-    dispatcher.connect('recipes_get_query', '/recipes/?key=value',
-        controller = recipesController, action = 'GET_QUERY',
-        conditions = dict(method=['GET']))
+
 
 	# Recommendation Functions
     dispatcher.connect('rec_delete', '/recommendations/',
