@@ -19,11 +19,16 @@ class _recipe_database:
 			output['message'] = 'key not found'
 		return output#return dictionary if it exists
 
-	def get_recipe_by_ingredient(self, ingr):#searches for all recipes that use a certain ingredient
+	def get_recipe_by_ingredient(self, listOIngredients):#searches for all recipes that use a certain ingredient
 		output = {}
+		found = 0
 		for arec in self.recipes:#loop through all recipes
-			if ingr.lower() in self.recipes[arec]["ingredients"].lower():#check if ingredient string is in ingredients (using all lower case)
-				output[arec] = {}#add any results do output dictionary
+			found = 1
+			for food in listOIngredients:
+				if food.lower() not in self.recipes[arec]["ingredients"].lower():#check if ingredient string is in ingredients (using all lower case)
+					found = 0
+			if found == 1:
+				output[arec] = {}#add any results to output dictionary
 				output[arec] = self.recipes[arec]
 		return output
 
