@@ -42,7 +42,7 @@ class RecipesController(object):
 	def PUT(self, key):
 		rawData = cherrypy.request.body.read(int(cherrypy.request.headers['Content-Length']))
 		data = json.loads(rawData)
-		rdb.set_movie(key, data)
+		rdb.set_recipe(key, data)
 		output = {'result': 'success'}
 		return json.dumps(output)
 
