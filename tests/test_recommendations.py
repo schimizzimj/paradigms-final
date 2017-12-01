@@ -24,16 +24,16 @@ class TestRecommendations(unittest.TestCase):
 
     def test_recommendations_get(self):
         self.reset_data()
-        user_id = 300
-        r = requests.get(self.RECOMMENDATIONS_URL + str(user_id))
+        user_id = '300'
+        r = requests.get(self.RECOMMENDATIONS_URL + user_id)
         self.assertTrue(self.is_json(r.content.decode()))
         resp = json.loads(r.content.decode())
-        self.assertEqual(resp['recipe_id'], 684)
+        self.assertEqual(resp['recipe_id'], '684')
 
     def test_recommendations_put(self):
         self.reset_data()
-        user_id = 300
-        recipe_id = 17
+        user_id = '300'
+        recipe_id = '17'
         rating = 5
 
         m = {}
@@ -47,7 +47,7 @@ class TestRecommendations(unittest.TestCase):
         r = requests.get(self.RATINGS_URL + recipe_id)
         self.assertTrue(self.is_json(r.content.decode()))
         resp = json.loads(r.content.decode())
-        self.assertEqual(resp['rating'], 3.5714285714285716) 
+        self.assertEqual(resp['rating'], 3.5714285714285716)
 
 if __name__ == "__main__":
     unittest.main()
