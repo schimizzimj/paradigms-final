@@ -10,8 +10,8 @@ class ResetController(object):
 		pass
 
 	def PUT(self):
-		rdb.__init__()
-		rdb.load_recipes('data/origrecipe.txt')
-		rdb.load_ratings('data/origratings.txt')
+		rdb.__init__()#set the database to blank
+		rdb.load_recipes('data/origrecipe.txt')#load the recipes from original
+		rdb.load_ratings('data/origratings.txt')#load the ratings from original
 		output = {'result': 'success'}
-		return json.dumps(output)
+		return json.dumps(output)#respond to request
