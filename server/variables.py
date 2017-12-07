@@ -4,4 +4,4 @@ from _recipe_database import _recipe_database
 
 rdb = _recipe_database()
 rdb.load_recipes('data/origrecipe.txt')
-rdb.load_ratings('data/origratings.txt')
+rdb.load_ratings('data/ratings_new.txt')
