@@ -83,10 +83,12 @@ function Dropdown() {
 
 // Create image object
 function Image() {
+  var error = "this.onerror=null;this.src='http://via.placeholder.com/500x500?text=No+image';"
   this.createImage = function(id, url) {
     this.item = document.createElement("div");
     this.item.setAttribute("id", id);
     this.item.style.backgroundImage = "url(" + url + ")";
+    this.item.setAttribute("onerror", error);
   };
   this.changeImage = function(url) {
     this.item.style.backgroundImage = "url(" + url + ")";
