@@ -68,21 +68,34 @@ class _recipe_database:
 		avgrat=float(total)/float(counter)#divide total by counter to find average rating
 		return avgrat
 
-	def get_highest_nonrated_recipe(self, user, recipedict):
-		current = "0"#set an initial recipe
-		flipped = 1#flag variable to check if all recipes have been rated
-		for item in recipedict:#for all recipes in the given dictionary (this allows for ingredient search)
-			if user in self.ratings[current]:#if the user has rated it already
-				current = item#move on to the next recipe
-				flipped = 0#set the flag to represent that the most recent recipe was already rated
-			elif self.get_rating(current) > self.get_rating(item):# if the recipe is unrated by the user and the best checked yet
-				current = item#set it as the current best
-				flipped = 1#set the flag to indicate it has not been rated
-			#print("{} > {}".format(self.get_rating(current), self.get_rating(item)))
-		if flipped == 1:
-			return current
+	# def get_highest_nonrated_recipe(self, user, recipedict):
+	# 	current = "0"#set an initial recipe
+	# 	flipped = 1#flag variable to check if all recipes have been rated
+	# 	for item in recipedict:#for all recipes in the given dictionary (this allows for ingredient search)
+	# 		if user in self.ratings[current]:#if the user has rated it already
+	# 			current = item#move on to the next recipe
+	# 			flipped = 0#set the flag to represent that the most recent recipe was already rated
+	# 		elif self.get_rating(current) > self.get_rating(item):# if the recipe is unrated by the user and the best checked yet
+	# 			current = item#set it as the current best
+	# 			flipped = 1#set the flag to indicate it has not been rated
+	# 		#print("{} > {}".format(self.get_rating(current), self.get_rating(item)))
+	# 	if flipped == 1:
+	# 		return current
+	# 	else:
+	# 		return '-1'
+
+	def get_highest_nonrated_recipe(self, uid, recipedict):
+		if self.ratings:
+			ratings = {}
+			for key in self.ratings:
+				if key in recipedict:
+					if uid not in self.ratings[key]:
+						ratings[key] = self.get_rating(key)
+			max_val = max(ratings.values())
+			ratings_max = [key for key in ratings.keys() if ratings[key] == max_val]
+			return min(ratings_max)
 		else:
-			return '-1'
+			return None
 
 	def get_highest_rated_recipe(self):
 		# used to get the highest rated recipe overall
@@ -126,7 +139,6 @@ class _recipe_database:
 		f.close
 
 	def write_ratings(self, filename):#save the current rating data
-		print("saving ratings")
 		f = open(filename, "w")#open file
 		for item in self.ratings:#loop through all recipes
 			for uitem in self.ratings[item]:#loop through all of the ratings for this recipe
@@ -137,7 +149,13 @@ class _recipe_database:
 
 if __name__ == "__main__":#test stuff
 	rdb = _recipe_database()
-
+	rdb.load_recipes('data/origrecipe.txt')
 	rdb.load_ratings('data/origratings.txt')
-	rdb.set_user_recipe_rating('100000', '0', 5)
-	rdb.write_ratings('data/ratings.txt')
+	newdict = rdb.get_recipe_by_ingredient(['cheddar'])
+	# for key in newdict:
+	# 	if '23' not in rdb.ratings[key]:
+	# 		print(key)
+	for i in range(0, 33):
+		rid = rdb.get_highest_nonvoted_recipe('23', newdict)
+		rdb.set_user_recipe_rating('23', rid, 5)
+		print(rid)

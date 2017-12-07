@@ -169,7 +169,7 @@ function vote(rating) {
   var xhttp2 = new XMLHttpRequest();
   method = 'PUT',
   url = base_url + '/save/';
-  data = {}
+  data = {' ':' '}
   var json = JSON.stringify(data);
   xhttp2.open(method, url, true);
   xhttp2.onreadystatechange = function() {
