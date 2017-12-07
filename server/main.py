@@ -5,6 +5,13 @@ from controllers.reset_cont import *
 from controllers.recipes_cont import *
 from controllers.recommendations_cont import *
 from controllers.ratings_cont import *
+from controllers.options_cont import *
+
+def CORS():
+        cherrypy.response.headers["Access-Control-Allow-Origin"] = "*"
+        cherrypy.response.headers["Access-Control-Allow-Methods"] = "GET, PUT, POST, DELETE"
+        cherrypy.response.headers["Access-Control-Allow-Credentials"] = "*"
+
 
 def start_service():
     d = dict()
@@ -13,6 +20,8 @@ def start_service():
     recipesController = RecipesController()
     recController = RecommendationsController()
     ratingsController = RatingsController()
+    optionsController = OptionsController()
+
 
 	### Link up dispatcher to functions
 	# Reset Functions
@@ -64,13 +73,43 @@ def start_service():
         controller = ratingsController, action = 'GET',
         conditions = dict(method=['GET']))
 
+    # Connect resources to options controller
+    dispatcher.connect(name='reset_connect', route='/reset/',
+            controller=optionsController, action='OPTIONS',
+            conditions=dict(method=['OPTIONS']))
+    dispatcher.connect(name='recipes_connect', route='/recipes/',
+            controller=optionsController, action='OPTIONS',
+            conditions=dict(method=['OPTIONS']))
+    dispatcher.connect(name='recipes_key_connect', route='/recipes/:key',
+            controller=optionsController, action='OPTIONS',
+            conditions=dict(method=['OPTIONS']))
+    dispatcher.connect(name='recipes_query_connect', route='/recipes/query=:ingredients',
+            controller=optionsController, action='OPTIONS',
+            conditions=dict(method=['OPTIONS']))
+    dispatcher.connect(name='recommendations_connect', route='/recommendations/',
+            controller=optionsController, action='OPTIONS',
+            conditions=dict(method=['OPTIONS']))
+    dispatcher.connect(name='recommendations_key_connect', route='/recommendations/:key',
+            controller=optionsController, action='OPTIONS',
+            conditions=dict(method=['OPTIONS']))
+    dispatcher.connect(name='recommendations_key_ingredients_connect', route='/recommendations/:key/:ingredients',
+            controller=optionsController, action='OPTIONS',
+            conditions=dict(method=['OPTIONS']))
+    dispatcher.connect(name='ratings_key_connect', route='/ratings/:key',
+            controller=optionsController, action='OPTIONS',
+            conditions=dict(method=['OPTIONS']))
+
 	# configuration for the server
     conf = {
             'global': {
                         'server.socket_host': 'student04.cse.nd.edu',
                         'server.socket_port': 51069,
                         },
-            '/': {'request.dispatch': dispatcher} }
+            '/': {
+                'request.dispatch': dispatcher,
+                'tools.CORS.on': True
+            },
+    }
 
 	# starting the server
     cherrypy.config.update(conf)
@@ -79,4 +118,5 @@ def start_service():
 
 
 if __name__ == '__main__':
+    cherrypy.tools.CORS = cherrypy.Tool('before_finalize', CORS)
     start_service()
