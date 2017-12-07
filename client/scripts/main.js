@@ -151,10 +151,25 @@ function setUp(uid, args, ingredients_list) {
 }
 
 function vote(rating) {
+  // Send a put to recommendations to update the user rating for the recipe
   var xhttp = new XMLHttpRequest();
   method = 'PUT',
   url = base_url + '/recommendations/' + uid;
   data = {'recipe_id': recipe_id, 'rating': rating}
+  var json = JSON.stringify(data);
+  xhttp.open(method, url, true);
+  xhttp.onreadystatechange = function() {
+    if (xhttp.readyState == 4 && xhttp.status == 200) {
+        console.log(xhttp.response);
+    }
+  };
+  xhttp.send(json);
+
+  // Send a second PUT to save the ratings to file
+  var xhttp = new XMLHttpRequest();
+  method = 'PUT',
+  url = base_url + '/save/';
+  data = {}
   var json = JSON.stringify(data);
   xhttp.open(method, url, true);
   xhttp.onreadystatechange = function() {

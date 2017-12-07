@@ -6,6 +6,7 @@ from controllers.recipes_cont import *
 from controllers.recommendations_cont import *
 from controllers.ratings_cont import *
 from controllers.options_cont import *
+from controllers.save_cont import *
 
 def CORS():
         cherrypy.response.headers["Access-Control-Allow-Origin"] = "*"
@@ -21,11 +22,16 @@ def start_service():
     recController = RecommendationsController()
     ratingsController = RatingsController()
     optionsController = OptionsController()
+    saveController = SaveController()
 
 
 	### Link up dispatcher to functions
 	# Reset Functions
     dispatcher.connect('dict_put', '/reset/',
+        controller = resetController, action = 'PUT')
+
+    # Save Functions
+    dispatcher.connect('save_put', '/save/',
         controller = resetController, action = 'PUT')
 
 	# Recipe Functions
@@ -75,6 +81,9 @@ def start_service():
 
     # Connect resources to options controller
     dispatcher.connect(name='reset_connect', route='/reset/',
+            controller=optionsController, action='OPTIONS',
+            conditions=dict(method=['OPTIONS']))
+    dispatcher.connect(name='save_connect', route='/save/',
             controller=optionsController, action='OPTIONS',
             conditions=dict(method=['OPTIONS']))
     dispatcher.connect(name='recipes_connect', route='/recipes/',
