@@ -166,7 +166,7 @@ function vote(rating) {
   xhttp.send(json);
 
   // Send a second PUT to save the ratings to file
-  var xhttp = new XMLHttpRequest();
+  var xhttp2 = new XMLHttpRequest();
   method = 'PUT',
   url = base_url + '/save/';
   data = {}

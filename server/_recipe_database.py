@@ -126,6 +126,7 @@ class _recipe_database:
 		f.close
 
 	def write_ratings(self, filename):#save the current rating data
+		print("saving ratings")
 		f = open(filename, "w")#open file
 		for item in self.ratings:#loop through all recipes
 			for uitem in self.ratings[item]:#loop through all of the ratings for this recipe
