@@ -138,6 +138,6 @@ class _recipe_database:
 if __name__ == "__main__":#test stuff
 	rdb = _recipe_database()
 
-	rdb.load_ratings('origratings.txt')
+	rdb.load_ratings('data/origratings.txt')
 	rdb.set_user_recipe_rating('100000', '0', 5)
-	rdb.write_ratings('ratings.txt')
+	rdb.write_ratings('data/ratings.txt')

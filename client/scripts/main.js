@@ -171,11 +171,11 @@ function vote(rating) {
   url = base_url + '/save/';
   data = {}
   var json = JSON.stringify(data);
-  xhttp.open(method, url, true);
-  xhttp.onreadystatechange = function() {
-    if (xhttp.readyState == 4 && xhttp.status == 200) {
-        console.log(xhttp.response);
+  xhttp2.open(method, url, true);
+  xhttp2.onreadystatechange = function() {
+    if (xhttp2.readyState == 4 && xhttp2.status == 200) {
+        console.log(xhttp2.response);
     }
   };
-  xhttp.send(json);
+  xhttp2.send(json);
 }
