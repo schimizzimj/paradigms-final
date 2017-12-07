@@ -10,6 +10,7 @@ class ResetController(object):
 		pass
 
 	def PUT(self):
+		print("resetting")
 		rdb.__init__()#set the database to blank
 		rdb.load_recipes('data/origrecipe.txt')#load the recipes from original
 		rdb.load_ratings('data/origratings.txt')#load the ratings from original
