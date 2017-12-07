@@ -87,7 +87,7 @@ function Image() {
   this.createImage = function(id, url) {
     this.item = document.createElement("div");
     this.item.setAttribute("id", id);
-    this.item.style.backgroundImage = "url(" + url + "), url(" + fallback + ")";
+    this.item.style.background = "url(" + url + "), url(" + fallback + ")";
   };
   this.changeImage = function(url) {
     this.item.style.backgroundImage = "url(" + url + ")";
