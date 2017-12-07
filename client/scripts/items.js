@@ -83,14 +83,14 @@ function Dropdown() {
 
 // Create image object
 function Image() {
-  var fallback = 'http://via.placeholder.com/500x500?text=No+image'
+  var fallback = "http://via.placeholder.com/500x500/DC3545/ffffff?text=No+image";
   this.createImage = function(id, url) {
     this.item = document.createElement("div");
     this.item.setAttribute("id", id);
-    this.item.style.background = "url(" + url + "), url(" + fallback + ")";
+    this.item.style.backgroundImage = "url(" + url + "), url(" + fallback + ")";
   };
   this.changeImage = function(url) {
-    this.item.style.backgroundImage = "url(" + url + ")";
+    this.item.style.backgroundImage = "url(" + url + "), url(" + fallback + ")";
   };
 }
 
