@@ -32,7 +32,7 @@ def start_service():
 
     # Save Functions
     dispatcher.connect('save_put', '/save/',
-        controller = resetController, action = 'PUT')
+        controller = saveController, action = 'PUT')
 
 	# Recipe Functions
     # would have rather used '/recipes/:ingredients', but wouldn't have been
